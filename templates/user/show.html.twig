@@ -16,14 +16,6 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
                 <th>Firstname</th>
                 <td>{{ user.firstname }}</td>
             </tr>
@@ -39,16 +31,36 @@
                 <th>GoldenTickets</th>
                 <td>{{ user.goldenTickets }}</td>
             </tr>
-            <tr>
-                <th>IsParticiped</th>
-                <td>{{ user.isParticiped ? 'Yes' : 'No' }}</td>
-            </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_user_index') }}">back to list</a>
+    <button type="button" class="btn btn-primary btn-checkpoint4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add points for this user ?
+    </button>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add points </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure u want to add some points to this guy {{ user.email }} ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a style="text-decoration: none;" class="text-light"
+                       href="{{ path('app_add_points', { id : user.id}) }}">
+                        <button type="button" class="btn btn-secondary" >Yes !</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    {{ include('user/_delete_form.html.twig') }}
+{#    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>#}
+
+{#    {{ include('user/_delete_form.html.twig') }}#}
 {% endblock %}

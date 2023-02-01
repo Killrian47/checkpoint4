@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,6 +46,21 @@ class UserController extends AbstractController
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    #[Route('/{id}/addpoints', name: 'app_add_points')]
+    public function addPointForOneUser(int $id, UserRepository $userRepository, EntityManagerInterface $manager): Response
+    {
+        $user = $userRepository->find($id);
+        $user->setPoints($user->getPoints()+10);
+        $manager->persist($user);
+        $manager->flush();
+
+        $this->addFlash('success', 'You had points to ' . $user->getEmail());
+
+        return $this->redirectToRoute('app_user_show', [
+            'id' => $id
         ]);
     }
 
