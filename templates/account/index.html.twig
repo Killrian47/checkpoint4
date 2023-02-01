@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+
+{% block body %}
+    {% if app.user %}
+        <h3>Welcome on your profile mister/misses {{ app.user.lastname }} {{ app.user.firstname }}</h3>
+
+    {% endif %}
+{% endblock %}
