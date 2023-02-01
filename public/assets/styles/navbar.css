@@ -1,0 +1,19 @@
+.logo-width {
+    width: 60%;
+}
+.header-left-width-no-connected {
+    width: 30%;
+    /*margin: auto;*/
+}
+.header-left-width {
+    width: 40% !important;
+}
+.header-left-item {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.simulation-header {
+    height: 125px;
+}
