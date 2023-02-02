@@ -3,45 +3,89 @@
 {% block title %}Participant index{% endblock %}
 
 {% block body %}
-    <h1>Participant index</h1>
-
-    <table class="table">
-        <thead>
+    {% set userIsInParticipant = false %}
+    {% set participantsIsEmpty = true %}
+    <div class="rounded-5 table-participants">
+        <h2 class="text-center">All participants</h2>
+        <table class="table border border-dark ">
+            <thead class="">
             <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th class="border-end border-dark text-center w-th">Firstname</th>
+                <th class="border-end border-dark text-center w-th">Lastname</th>
+                <th class="w-th">Email</th>
             </tr>
-        </thead>
-        <tbody>
-        {% set userIsInParticipant = false %}
-        {% for participant in participants %}
-            {% if app.user.email == participant.email %}
-                {% set userIsInParticipant = true %}
+            </thead>
+            <tbody>
+            {% for participant in participants %}
+                {% set participantsIsEmpty = false %}
+                {% if app.user.email == participant.email %}
+                    {% set userIsInParticipant = true %}
+                {% endif %}
+                <tr>
+                    <td class="border-end border-dark">{{ participant.firstname }}</td>
+                    <td class="border-end border-dark">{{ participant.lastname }}</td>
+                    <td>{{ participant.email }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">Nobody has join the draw for the moment ! Be the 1st</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-2 d-flex justify-content-between join-draw-reset-or-start ">
+        <div class="w-50 join-draw">
+            {% if userIsInParticipant == true %}
+                <p class="text-warning bg-black rounded-3 ps-2 text-center">You're already join the draw, you can't join
+                    a second
+                    time </p>
+            {% else %}
+                {% if app.user %}
+                    <a href="#" data-bs-target="#exampleModal" data-bs-toggle="modal">Join the draw</a>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Join the draw !</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-danger">
+                                    IF YOU JOIN THE DRAW, YOU'LL NOT ABLE TO LEAVE IT !
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary mt-2" data-bs-dismiss="modal">No I don't
+                                        !
+                                    </button>
+                                    <button type="button" class="btn btn-primary"><a
+                                                href="{{ path('app_join_participant') }}"
+                                                style="text-decoration: none; color: white">Yes I want !</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Sign in</a> for join the draw !
+                {% endif %}
             {% endif %}
-            <tr>
-                <td>{{ participant.id }}</td>
-                <td>{{ participant.email }}</td>
-                <td>{{ participant.firstname }}</td>
-                <td>{{ participant.lastname }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        </div>
 
-{#    <a href="{{ path('app_participant_new') }}">Create new</a>#}
-    {% if userIsInParticipant == true %}
-    <p>You're already join the draw</p>
-    {% else %}
-    <a href="{{ path('app_join_participant') }}">Join the draw</a>
-    {% endif %}
+        <div class="w-50 d-flex flex-column flex-lg-row justify-content-between">
+            {% if is_granted("ROLE_ADMIN") %}
+                {% if participantsIsEmpty == true %}
+                    <p class="">You can't get a looser right now</p>
+                {% else %}
+                    <a href="{{ path('app_start_random') }}" class="ms-2">Get a looser !</a>
 
-    <a href="{{ path('app_start_random') }}">Get a looser !</a>
+                {% endif %}
 
-    <a href="{{ path('app_reset_participant') }}">Reset the game</a>
+                <a href="{{ path('app_reset_participant') }}">Reset the game</a>
+            {% endif %}
+        </div>
+
+    </div>
 {% endblock %}
