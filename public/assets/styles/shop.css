@@ -38,3 +38,8 @@
     text-align: center;
     text-decoration: none;
 }
+
+.disabled {
+    background-color: #70AF90 !important;
+    border-color: #70AF90 !important;
+}

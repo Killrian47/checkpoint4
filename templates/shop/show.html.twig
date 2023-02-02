@@ -3,34 +3,69 @@
 {% block title %}Shop{% endblock %}
 
 {% block body %}
-    <h1>Shop</h1>
+    <div class="rounded-5 one-item form-sign-in-and-register">
+        <div class="item-information">
+            <h5 class="text-center">Item information</h5>
+            <div class="mt-3">
+                <p>Item's name : {{ shop.name }}</p>
+            </div>
+            <div>
+                <p>Item's image : <i class="{{ shop.image }}"></i></p>
+            </div>
+            <div>
+                <p>Item's stock : {{ shop.stock }} left</p>
+            </div>
+            <div>
+                <p>Item's price : {{ shop.price }} points</p>
+            </div>
+            <details>
+                <summary>Description's item</summary>
+                <p>{{ shop.description }}</p>
+            </details>
+        </div>
+        <div class="wallet mt-4">
+            <h5 class="text-center">Buy it or back ?</h5>
+            <div class="wallets">
+                <div class="coins">
+                    <h6 class="text-center">Buy it !</h6>
+                    <button class="btn btn-primary" data-bs-target="#exampleModal" data-bs-toggle="modal">I want to buy
+                        this item
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Buy this item !</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-danger">
+                                    Are you sure to want to buy this item ? You will loose {{ shop.price }} points !
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary mt-3" data-bs-dismiss="modal">No I
+                                        don't want to after reflexion !
+                                    </button>
+                                    <a href="{{ path('app_item_bought', { id : shop.id }) }}"
+                                       style="text-decoration: none; color: white">
+                                        <button type="button" class="btn btn-primary">Yes I want !</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="w-50 mx-auto border-dark d-lg-none">
+                <div class="golden-tickets w-50">
+                    <h6 class="text-center">Back to the list</h6>
+                    <a href="{{ path('app_shop_index') }}" class="btn btn-secondary d-flex justify-content-center">back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ shop.id }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ shop.name }}</td>
-        </tr>
-        <tr>
-            <th>Price</th>
-            <td>{{ shop.price }}</td>
-        </tr>
-        <tr>
-            <th>Stock</th>
-            <td>{{ shop.stock }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ shop.description }}</td>
-        </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_shop_index') }}">back to list</a>
 
-    <a href="{{ path('app_item_bought', { id : shop.id}) }}" class="ms-5">Buy it !</a>
+
 {% endblock %}

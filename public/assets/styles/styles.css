@@ -6,6 +6,7 @@
 @import "account.css";
 @import "user.css";
 @import "shop.css";
+@import "item.css";
 
 body {
     color: #474136;

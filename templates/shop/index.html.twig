@@ -12,8 +12,10 @@
                     <div class="box-for-item">
                         <div class="header-box-for-item h-25">
                             {% if item.stock > 10 %}
+                                {% set stockIsEmpty = false %}
                                 <p>Stock : in stock</p>
                             {% elseif item.stock >= 1 %}
+                                {% set stockIsEmpty = false %}
                                 <p>Stock : only {{ item.stock }} left</p>
                             {% else %}
                                 {% set stockIsEmpty = true %}
