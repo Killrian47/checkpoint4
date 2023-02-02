@@ -57,6 +57,7 @@ class ParticipantController extends AbstractController
         $manager->persist($participant);
 
         $manager->flush();
+        $this->addFlash('success', 'You join the draw, good luck to you !');
         return $this->redirectToRoute('app_participant_index');
     }
 
@@ -70,6 +71,7 @@ class ParticipantController extends AbstractController
         $platform   = $connection->getDatabasePlatform();
 
         $connection->executeUpdate($platform->getTruncateTableSQL('participant', true /* whether to cascade */));
+        $this->addFlash('success', 'The draw has been reset successfully');
         return $this->redirectToRoute('app_participant_index');
 
     }

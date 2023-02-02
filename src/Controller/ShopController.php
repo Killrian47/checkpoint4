@@ -64,8 +64,9 @@ class ShopController extends AbstractController
             $shop->setStock($shop->getStock() - 1);
             $manager->persist($user);
             $manager->persist($shop);
-            $manager->flush();
+            $this->addFlash('info', 'You just bought a item, you can go on your account to see the changement');
         }
+        $manager->flush();
 
         return $this->redirectToRoute('app_shop_show', [
             'id' => $shop->getId()
