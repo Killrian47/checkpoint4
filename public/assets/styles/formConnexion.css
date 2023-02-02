@@ -1,0 +1,20 @@
+.form-sign-in-and-register {
+    background: #d9d9d9;
+    padding: 20px;
+    width: 35%;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    color: #474136;
+}
+
+.btn-primary {
+    margin-top: 10px;
+    background-color: #70AF90;
+    border: #70AF90;
+}
+.btn-primary:hover {
+    background-color: #314d3f;
+    border: #314d3f;
+    color: white;
+}

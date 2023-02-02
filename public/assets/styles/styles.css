@@ -1,2 +1,7 @@
 @import "navbar.css";
 @import "home.css";
+@import "formConnexion.css";
+
+body {
+    color: #474136;
+}
