@@ -26,7 +26,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('firstname'),
             TextField::new('lastname'),
             IntegerField::new('points'),
-            IntegerField::new('goldenTickets'),g
+            IntegerField::new('goldenTickets'),
         ];
     }
 

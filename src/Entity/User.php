@@ -43,7 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $goldenTickets = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $isParticiped = null;
+    private ?bool $isLooser = null;
 
     public function getId(): ?int
     {
@@ -163,14 +163,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isIsParticiped(): ?bool
+
+    public function isIsLooser(): ?bool
     {
-        return $this->isParticiped;
+        return $this->isLooser;
     }
 
-    public function setIsParticiped(?bool $isParticiped): self
+    public function setIsLooser(?bool $isLooser): self
     {
-        $this->isParticiped = $isParticiped;
+        $this->isLooser = $isLooser;
 
         return $this;
     }
