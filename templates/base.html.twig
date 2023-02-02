@@ -24,11 +24,14 @@
 <body>
 {% include '_includes/navbar.html.twig' %}
 
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success alert-dismissible fade show w-75 mx-auto">
-        {{ message }}
-    </div>
+{% for category, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+    {% endfor %}
 {% endfor %}
+
 {% block body %}{% endblock %}
 </body>
 </html>

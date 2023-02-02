@@ -18,6 +18,7 @@
                     <li><a class="dropdown-item" href="{{ path('app_shop_index') }}">Shop</a></li>
                     {% if is_granted("ROLE_ADMIN") %}
                         <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Add points to a user</a></li>
+                        <li><a class="dropdown-item" href="{{ path('admin') }}">Admin</a></li>
                     {% endif %}
                     <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
                 </ul>
