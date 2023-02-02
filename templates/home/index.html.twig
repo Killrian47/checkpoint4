@@ -3,18 +3,87 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/33695/OneDrive/Bureau/testSymfony/checkpoint4V2/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/33695/OneDrive/Bureau/testSymfony/checkpoint4V2/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="w-75 mx-auto">
+        <div class="d-flex align-items-center flex-column">
+            <img src="{{ asset('images/choco.png') }}" alt="big-choco" class="rounded-4" width="400" height="200">
+            <h1 class="mt-2">Welcome to ChocoWeek</h1>
+        </div>
+        <div class="rules-and-about-us-container">
+            <div class="rules-container">
+                <h3 class="text-center">There is many rules : </h3>
+                <div>
+                    <h5>First rule !</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, impedit, nulla? Ab amet
+                        blanditiis dolor eaque eius eligendi enim, exercitationem itaque nostrum odit quasi ratione
+                        reprehenderit suscipit? Fuga, mollitia, sunt!
+                    </p>
+                </div>
+                <div>
+                    <h5>Second rule !</h5>
+                    <p>
+                        Accusantium aliquid commodi, delectus dolores ducimus enim, eum facere facilis laborum minus rem
+                        voluptatum. At dolorem facilis libero molestiae quis quo ut? Ad excepturi fugit illum natus quis
+                        tempore tenetur.
+                    </p>
+                </div>
+                <div>
+                    <h5>Third rule !</h5>
+                    <p>
+                        Autem beatae fugit inventore officiis optio perspiciatis, tenetur vel. Accusamus iste,
+                        quibusdam.
+                        Consequuntur magni odit quibusdam? Animi architecto asperiores dignissimos, dolore, ducimus ex
+                        excepturi maiores perspiciatis, quae reiciendis sapiente veritatis.
+                    </p>
+                </div>
+                <div class="text-center">
+                    {% if app.user %}
+                        <p>You want to participate in a draw ? Click <strong><a
+                                    href="{{ path('app_participant_index') }}">here</a></strong>
+                            too see all the participants !</p>
+                    {% else %}
+                        <p>
+                            You want to participate ? <strong><a href="{{ path('app_login') }}">Sign in</a></strong>
+                            you or <strong><a href="{{ path('app_register') }}">create</a></strong> an account if you don't have one.
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="about-us-container">
+{#                <h3>About us and about this projet </h3>#}
+                <div>
+                    <h4 class="text-center">About us</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, impedit, nulla? Ab amet
+                        blanditiis dolor eaque eius eligendi enim, exercitationem itaque nostrum odit quasi ratione
+                        reprehenderit suscipit? Fuga, mollitia, sunt!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi delectus doloribus!
+                        Eius, reprehenderit ut. Beatae culpa cumque deleniti ea eaque eligendi esse, est et labore
+                        libero nemo odio quas reiciendis repellat sapiente sunt tempora ut. Aperiam dolor est nisi.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cupiditate dolores ducimus
+                        error facere iste maiores nostrum, quasi sit veniam? Alias amet corporis delectus dolorem
+                        eligendi,
+                        excepturi ipsa ipsum itaque provident quia quis quos reprehenderit, repudiandae tempore totam
+                        ullam ut.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-center">About the project</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, impedit, nulla? Ab amet
+                        blanditiis dolor eaque eius eligendi enim, exercitationem itaque nostrum odit quasi ratione
+                        reprehenderit suscipit? Fuga, mollitia, sunt!
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus commodi delectus doloribus!
+                        Eius, reprehenderit ut. Beatae culpa cumque deleniti ea eaque eligendi esse, est et labore
+                        libero nemo odio quas reiciendis repellat sapiente sunt tempora ut. Aperiam dolor est nisi.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cupiditate dolores ducimus
+                        error facere iste maiores nostrum, quasi sit veniam? Alias amet corporis delectus dolorem
+                        eligendi,
+                        excepturi ipsa ipsum itaque provident quia quis quos reprehenderit, repudiandae tempore totam
+                        ullam ut.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
