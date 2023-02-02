@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/styles/looser.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>{{ theLooser.email }}</h1>
+    <div class="big-container">
+        <div class="container">
+
+            <div class="upper">The looser is</div>
+            <div class="lower">The looser is</div>
+            <span class="inside">{{ theLooser.firstname }} {{ theLooser.lastname }}</span>
+        </div>
+    </div>
 {% endblock %}

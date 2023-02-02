@@ -15,5 +15,6 @@
     align-items: center;
 }
 .simulation-header {
-    height: 125px;
+    height: 85px;
+    margin-bottom: 20px;
 }
