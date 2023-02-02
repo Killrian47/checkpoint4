@@ -6,41 +6,48 @@
             </a>
         </div>
         {% if app.user %}
-        <div class="btn-group dropstart d-lg-none">
-            <button class="btn btn-secondary dropdown-toggle rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ path('app_home') }}">Home</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_account') }}">My account</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_shop_index') }}">Shop</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_participant_index') }}">Join the draw</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
-            </ul>
-        </div>
+            <div class="btn-group dropstart d-lg-none">
+                <button class="btn btn-secondary dropdown-toggle rounded-3" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ path('app_home') }}">Home</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_account') }}">My account</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_participant_index') }}">Join the draw</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_shop_index') }}">Shop</a></li>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Add points to a user</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
+                </ul>
+            </div>
 
-        <div class="d-none d-lg-block w-100 header-left-width" id="navbarNav">
-            <div class="header-left-item">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ path('app_shop_index') }}">Shop</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_participant_index') }}">Join the draw</a>
-                </li>
+            <div class="d-none d-lg-block w-100 header-left-width" id="navbarNav">
+                <div class="header-left-item">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_shop_index') }}">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_participant_index') }}">Join the draw</a>
+                    </li>
                     <div class="btn-group dropstart ">
-                        <button class="btn btn-secondary dropdown-toggle rounded-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle rounded-3" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user"></i>
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{{ path('app_account') }}">My account</a></li>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <li><a class="dropdown-item" href="{{ path('admin') }}">Admin</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_user_index') }}">Add point to a user</a>
+                                </li>
                             {% endif %}
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Logout</a></li>
                         </ul>
                     </div>
+                </div>
             </div>
-        </div>
         {% else %}
             <div class="header-left-width-no-connected">
                 <div class="header-left-item">

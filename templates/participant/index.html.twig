@@ -5,6 +5,7 @@
 {% block body %}
     {% set userIsInParticipant = false %}
     {% set participantsIsEmpty = true %}
+    {% set countParticipant = participants|length %}
     <div class="rounded-5 table-participants form-sign-in-and-register">
         <h2 class="text-center">All participants</h2>
         <table class="table border border-dark ">
@@ -57,13 +58,14 @@
                                     IF YOU JOIN THE DRAW, YOU'LL NOT ABLE TO LEAVE IT !
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary mt-2" data-bs-dismiss="modal">No I don't
+                                    <button type="button" class="btn btn-secondary mt-3" data-bs-dismiss="modal">No I
+                                        don't
                                         !
                                     </button>
-                                    <button type="button" class="btn btn-primary"><a
-                                                href="{{ path('app_join_participant') }}"
-                                                style="text-decoration: none; color: white">Yes I want !</a>
-                                    </button>
+                                    <a href="{{ path('app_join_participant') }}"
+                                       style="text-decoration: none; color: white">
+                                        <button type="button" class="btn btn-primary">Yes I want !</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -76,11 +78,10 @@
 
         <div class="w-50 d-flex flex-column flex-lg-row justify-content-between">
             {% if is_granted("ROLE_ADMIN") %}
-                {% if participantsIsEmpty == true %}
-                    <p class="">You can't get a looser right now</p>
+                {% if participantsIsEmpty == true or countParticipant < 3 %}
+                    <p class="ms-2">You can't get a looser right now</p>
                 {% else %}
                     <a href="{{ path('app_start_random') }}" class="ms-2">Get a looser !</a>
-
                 {% endif %}
 
                 <a href="{{ path('app_reset_participant') }}">Reset the game</a>
