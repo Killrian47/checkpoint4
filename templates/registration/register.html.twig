@@ -3,15 +3,42 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="form-sign-in-and-register">
+        <h2 class="text-center">Register</h2>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_start(registrationForm) }}
+        <div class="d-flex flex-column">
+            {{ form_label(registrationForm.email) }}
+            <div class="form_error">
+                {{ form_errors(registrationForm.email) }}
+            </div>
+            {{ form_widget(registrationForm.email, { attr : { class : 'form-control '}}) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(registrationForm.firstname) }}
+            <div class="form_error">
+                {{ form_errors(registrationForm.firstname) }}
+            </div>
+            {{ form_widget(registrationForm.firstname, { attr : { class : 'form-control '}}) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(registrationForm.lastname) }}
+            <div class="form_error">
+                {{ form_errors(registrationForm.lastname) }}
+            </div>
+            {{ form_widget(registrationForm.lastname, { attr : { class : 'form-control '}}) }}
+        </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+
+        <div class="form_error">
+            {{ form_errors(registrationForm.plainPassword, { attr : { class : 'text-danger'}}) }}
+        </div>
+        {{ form_widget(registrationForm.plainPassword) }}
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">Register</button>
+
+        </div>
+        {{ form_end(registrationForm) }}
+    </div>
+
 {% endblock %}

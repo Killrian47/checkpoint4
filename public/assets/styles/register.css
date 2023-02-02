@@ -1,0 +1,17 @@
+.form_error ul {
+    padding-left: 0;
+}
+
+.form_error li {
+    margin-top: 5px;
+    list-style: none;
+    background-color: #ef4747;
+    border: 2px solid #ef4747;
+    border-radius: 5px;
+    /*width: %;*/
+    color: #620000;
+    line-height: 32px;
+    /*text-align: center;*/
+    padding-left: 10px;
+}
+
