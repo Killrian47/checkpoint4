@@ -4,7 +4,48 @@
 
 {% block body %}
     {% if app.user %}
-        <h3>Welcome on your profile mister/misses {{ app.user.lastname }} {{ app.user.firstname }}</h3>
-
+        <div class="form-sign-in-and-register">
+            <h2 class="text-center">Your account</h2>
+            <div class="information-user">
+                <h5 class="text-center">Your personal information</h5>
+                <div class="user-email">
+                    <p>Your email : {{ app.user.email }}</p>
+                </div>
+                <div class="user-firstname">
+                    <p>Your firstname : {{ app.user.firstname }}</p>
+                </div>
+                <div class="user-lastname">
+                    <p>Your lastname: {{ app.user.lastname }}</p>
+                </div>
+            </div>
+            <div class="wallet mt-4">
+                <h5 class="text-center">Your wallet</h5>
+                <div class="wallets">
+                    <div class="coins">
+                        <h6 class="text-center">Here your points <i class="fab fa-bitcoin"></i><br> or money for this
+                            website</h6>
+                        {% if app.user.points < 1 %}
+                            <p>You don't have points for the moment, do something good and perhaps the admin will be
+                                gentle if you and he'll add you some points</p>
+                        {% else %}
+                            <p>You've <span class="border-2 p-1">{{ app.user.points }}</span> points</p>
+                            <p>You can spend your points on the <a href="{{ path('app_shop_index') }}">shop</a></p>
+                        {% endif %}
+                    </div>
+                    <hr class="w-50 mx-auto border-dark d-lg-none">
+                    <div class="golden-tickets w-50">
+                        <h6 class="text-center">Here your golden tickets <i
+                                    class="fa-solid fa-ticket image-item-account"></i>, if u have some</h6>
+                        {% if app.user.goldenTickets < 1 %}
+                            <p>You don't have golden tickets for the moment, check the <a
+                                        href="{{ path('app_shop_index') }}">shop</a>
+                                for buy it perhaps</p>
+                        {% else %}
+                            <p>You've {{ app.user.goldenTickets }} golden tickets</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}
