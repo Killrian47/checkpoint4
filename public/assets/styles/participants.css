@@ -1,0 +1,29 @@
+.table-participants {
+    background: #d9d9d9;
+    padding: 10px;
+    width: 90%;
+    margin: auto;
+}
+.w-th {
+    width: calc(100%/3);
+}
+
+.join-draw-reset-or-start {
+    width: 90%;
+    margin: auto;
+    flex-direction: column;
+}
+
+.join-draw {
+    margin-bottom: 10px;
+}
+
+@media screen and (min-width: 992px) {
+    .table-participants {
+        width: 60%;
+    }
+    .join-draw-reset-or-start {
+        width: 60%;
+        flex-direction: inherit;
+    }
+}

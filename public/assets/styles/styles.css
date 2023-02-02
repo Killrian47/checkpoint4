@@ -2,7 +2,12 @@
 @import "home.css";
 @import "register.css";
 @import "formConnexion.css";
+@import "participants.css";
 
 body {
     color: #474136;
+
+}
+
+.main-color {
 }
