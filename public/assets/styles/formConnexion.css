@@ -1,7 +1,7 @@
 .form-sign-in-and-register {
     background: #d9d9d9;
     padding: 20px;
-    width: 35%;
+    width: 85%;
     margin: auto;
     border-radius: 20px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
@@ -17,4 +17,10 @@
     background-color: #314d3f;
     border: #314d3f;
     color: white;
+}
+
+@media screen and (min-width: 992px) {
+    .form-sign-in-and-register {
+        width: 50%;
+    }
 }

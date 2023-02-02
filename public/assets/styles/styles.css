@@ -3,11 +3,14 @@
 @import "register.css";
 @import "formConnexion.css";
 @import "participants.css";
+@import "account.css";
 
 body {
     color: #474136;
 
 }
 
-.main-color {
+.fa-ticket, .fa-bitcoin {
+    color: goldenrod;
+    transform: rotate(-45deg);
 }
