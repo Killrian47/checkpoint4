@@ -3,39 +3,36 @@
 {% block title %}Shop index{% endblock %}
 
 {% block body %}
-    <h1>Shop index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for shop in shops %}
-            <tr>
-                <td>{{ shop.id }}</td>
-                <td>{{ shop.name }}</td>
-                <td>{{ shop.price }}</td>
-                <td>{{ shop.stock }}</td>
-                <td>{{ shop.description }}</td>
-                <td>
-                    <a href="{{ path('app_shop_show', {'id': shop.id}) }}">show</a>
-                    <a href="{{ path('app_shop_edit', {'id': shop.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_shop_new') }}">Create new</a>
+    <div class="form-sign-in-and-register">
+        <h2 class="text-center">Welcome to the shop</h2>
+        <div class="all-items-display mt-3">
+            {% set stockIsEmpty = false %}
+            {% if items %}
+                {% for item in items %}
+                    <div class="box-for-item">
+                        <div class="header-box-for-item h-25">
+                            {% if item.stock > 10 %}
+                                <p>Stock : in stock</p>
+                            {% elseif item.stock >= 1 %}
+                                <p>Stock : only {{ item.stock }} left</p>
+                            {% else %}
+                                {% set stockIsEmpty = true %}
+                                <p>Stock : Out of stock</p>
+                            {% endif %}
+                        </div>
+                        <div class="body-box-for-item h-50">
+                            <p>{{ item.name }}</p>
+                            <i class="{{ item.image }}"></i>
+                        </div>
+                        <div class="footer-box-for-item h-25 pb-2 ">
+                            <a href="{{ path('app_shop_show', { id : item.id}) }}"
+                               class="btn btn-primary {% if stockIsEmpty %}disabled btn-primary{% endif %}">See more details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h4 class="text-center">The shop is empty come back later</h4>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

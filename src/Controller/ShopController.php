@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Shop;
 use App\Form\ShopType;
 use App\Repository\ShopRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +18,7 @@ class ShopController extends AbstractController
     public function index(ShopRepository $shopRepository): Response
     {
         return $this->render('shop/index.html.twig', [
-            'shops' => $shopRepository->findAll(),
+            'items' => $shopRepository->findAll(),
         ]);
     }
 
@@ -48,6 +49,29 @@ class ShopController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/buy', name: 'app_item_bought')]
+    public function someOnBuyIt(Shop $shop, EntityManagerInterface $manager): Response
+    {
+        $user = $this->getUser();
+        if ($user->getPoints() < $shop->getPrice()) {
+            $this->addFlash('danger', 'You don\'t have much money to buy it');
+            return $this->redirectToRoute('app_shop_show', [
+                'id' => $shop->getId()
+            ]);
+        } else {
+            $user->setPoints($user->getPoints() - $shop->getPrice());
+            $user->setGoldenTickets($user->getGoldenTickets() + 1);
+            $shop->setStock($shop->getStock() - 1);
+            $manager->persist($user);
+            $manager->persist($shop);
+            $manager->flush();
+        }
+
+        return $this->redirectToRoute('app_shop_show', [
+            'id' => $shop->getId()
+        ]);
+    }
+
     #[Route('/{id}/edit', name: 'app_shop_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Shop $shop, ShopRepository $shopRepository): Response
     {
@@ -69,7 +93,7 @@ class ShopController extends AbstractController
     #[Route('/{id}', name: 'app_shop_delete', methods: ['POST'])]
     public function delete(Request $request, Shop $shop, ShopRepository $shopRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$shop->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $shop->getId(), $request->request->get('_token'))) {
             $shopRepository->remove($shop, true);
         }
 
