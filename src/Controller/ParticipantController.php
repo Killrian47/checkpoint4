@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
+use App\Repository\UserRepository;
+use App\Service\EmailSender;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Config\Doctrine\Orm\EntityManagerConfig;
 
@@ -69,6 +72,31 @@ class ParticipantController extends AbstractController
         $connection->executeUpdate($platform->getTruncateTableSQL('participant', true /* whether to cascade */));
         return $this->redirectToRoute('app_participant_index');
 
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     */
+    #[Route('/start', name: 'app_start_random')]
+    public function startGetLooser(
+        ParticipantRepository $participantRepository,
+        UserRepository $userRepository,
+        EmailSender $emailSender): Response
+    {
+        $totalParticipant = 0;
+        $numberOfParticipants = $participantRepository->countParticipants();
+        foreach ($numberOfParticipants as $participants) {
+            foreach ($participants as $participant) {
+                $totalParticipant = $participant;
+            }
+        }
+        $looser = rand(1, $totalParticipant);
+        $userLooser = $userRepository->find($looser);
+        $emailSender->emailForLooser($totalParticipant, $userLooser->getEmail());
+
+        return $this->render('participant/looser.html.twig', [
+            'theLooser' => $userLooser,
+        ]);
     }
 
     #[Route('/{id}', name: 'app_participant_show', methods: ['GET'])]

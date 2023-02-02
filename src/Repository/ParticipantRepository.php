@@ -39,6 +39,15 @@ class ParticipantRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function countParticipants()
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getResult();
+
+    }
 //    /**
 //     * @return Participant[] Returns an array of Participant objects
 //     */
