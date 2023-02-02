@@ -4,6 +4,7 @@
 @import "formConnexion.css";
 @import "participants.css";
 @import "account.css";
+@import "user.css";
 
 body {
     color: #474136;

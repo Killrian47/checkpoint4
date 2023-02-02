@@ -57,11 +57,9 @@ class UserController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
-        $this->addFlash('success', 'You had points to ' . $user->getEmail());
+        $this->addFlash('success', 'You\'ve added points to ' . $user->getEmail());
 
-        return $this->redirectToRoute('app_user_show', [
-            'id' => $id
-        ]);
+        return $this->redirectToRoute('app_user_index');
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
