@@ -53,7 +53,7 @@ class ParticipantController extends AbstractController
         $user = $this->getUser();
         $participant->setEmail($user->getEmail());
         $participant->setFirstname($user->getFirstname());
-        $participant->setFirstname($user->getLastname());
+        $participant->setLastname($user->getLastname());
         $manager->persist($participant);
 
         $manager->flush();
@@ -83,9 +83,11 @@ class ParticipantController extends AbstractController
     public function startGetLooser(
         ParticipantRepository $participantRepository,
         UserRepository $userRepository,
-        EmailSender $emailSender): Response
-    {
+        EmailSender $emailSender,
+        EntityManagerInterface $manager
+    ): Response {
         $totalParticipant = 0;
+        $allParticipants = $participantRepository->findAll();
         $numberOfParticipants = $participantRepository->countParticipants();
         foreach ($numberOfParticipants as $participants) {
             foreach ($participants as $participant) {
@@ -94,7 +96,21 @@ class ParticipantController extends AbstractController
         }
         $looser = rand(1, $totalParticipant);
         $userLooser = $userRepository->find($looser);
-        $emailSender->emailForLooser($totalParticipant, $userLooser->getEmail());
+        if ($userLooser->isIsLooser() === true) {
+            $this->startGetLooser($participantRepository, $userRepository, $emailSender, $manager);
+        } else {
+            foreach ($allParticipants as $allParticipant) {
+                $userParticipants = $userRepository->findBy(['email' => $allParticipant->getEmail()]);
+                foreach ($userParticipants as $userParticipant) {
+                    $userParticipant->setIsLooser(false);
+                    $manager->persist($userParticipant);
+                }
+            }
+            $userLooser->setIsLooser(true);
+            $manager->persist($userLooser);
+        }
+        $manager->flush();
+       // $emailSender->emailForLooser($totalParticipant, $userLooser->getEmail());
 
         return $this->render('participant/looser.html.twig', [
             'theLooser' => $userLooser,
